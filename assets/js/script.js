@@ -6,10 +6,6 @@ var choiceBtn2  = document.querySelector("#choice2");
 var choiceBtn3  = document.querySelector("#choice3");
 var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
-var answer1Text = document.getElementById("choice1");
-var answer2Text = document.getElementById("choice2");
-var answer3Text = document.getElementById("choice3");
-var answer4Text = document.getElementById("choice4");
 
 // Question and Answer Variables
 var questionsPos = 0;
@@ -22,6 +18,7 @@ var q3answers = ["No", "No", "Yes", "No"];
 var q4answers = ["No", "No", "No", "Yes"];
 var answersArray = [q1answers, q2answers, q3answers, q4answers];
 
+// will have to run a function that starts the timer and call the writeQuestion from that
 startBtn.addEventListener("click", writeQuestion);
 
 
@@ -29,10 +26,10 @@ function writeQuestion() {
 questionText.textContent = questions[questionsPos];
 startBtn.style.display = 'none';
 choiceBtn.style.display = 'inline-block';
-answer1Text.textContent = (answersArray[currAnswers])[0];
-answer2Text.textContent = (answersArray[currAnswers])[1];
-answer3Text.textContent = (answersArray[currAnswers])[2];
-answer4Text.textContent = (answersArray[currAnswers])[3];
+choiceBtn1.textContent = (answersArray[currAnswers])[0];
+choiceBtn2.textContent = (answersArray[currAnswers])[1];
+choiceBtn3.textContent = (answersArray[currAnswers])[2];
+choiceBtn4.textContent = (answersArray[currAnswers])[3];
 // Need to find way to decide if answer is correct or not
 choiceBtn1.addEventListener("click", correct);
 
