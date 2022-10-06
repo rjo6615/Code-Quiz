@@ -89,24 +89,20 @@ questionsPos++;
 currAnswers++;
 correctAnswer++;
 writeQuestion();
-console.log(test); // working on it
+counter = counter - 10;
+console.log(counter); // working on it
 };
 
-
-var test = 0; // working on it
 //Timer
+var counter;
 var seconds = 59;
 function startCountdown(seconds) {
-    var counter = seconds;
+    counter = seconds;
     const interval = setInterval(() => {
       var value = document.getElementById("timer");
       value.textContent = "Timer: " + counter;      
       counter--;
-      test++; // working on it
       
-      
-     
-        
       if (counter < 0 ) {
         clearInterval(interval);
       value.textContent = "Times up!";
@@ -114,6 +110,4 @@ function startCountdown(seconds) {
       
     }, 1000);
   
- };
-
- 
+ }; 
