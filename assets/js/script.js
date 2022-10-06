@@ -8,6 +8,7 @@ var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
 var value = document.getElementById("solution");
 
+
 // Question and Answer Variables
 var questionsPos = 0;
 var currAnswers = 0;
@@ -78,6 +79,8 @@ correctAnswer++;
 writeQuestion();
 };
 
+
+
 function wrong() {
 value.textContent = "Wrong!";
 correctChosen.removeEventListener("click", correct);
@@ -86,22 +89,31 @@ questionsPos++;
 currAnswers++;
 correctAnswer++;
 writeQuestion();
+console.log(test); // working on it
 };
 
+
+var test = 0; // working on it
 //Timer
 var seconds = 59;
 function startCountdown(seconds) {
-    let counter = seconds;
-      
+    var counter = seconds;
     const interval = setInterval(() => {
       var value = document.getElementById("timer");
-      value.textContent = counter;
-      console.log(counter);
+      value.textContent = "Timer: " + counter;      
       counter--;
+      test++; // working on it
+      
+      
+     
         
       if (counter < 0 ) {
         clearInterval(interval);
       value.textContent = "Times up!";
       }
+      
     }, 1000);
-  };  
+  
+ };
+
+ 
