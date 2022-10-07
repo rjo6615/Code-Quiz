@@ -1,5 +1,7 @@
 // Variable assignments
 var startBtn  = document.querySelector("#start");
+var textField  = document.querySelector(".card-body");
+var highScoreBtn = document.querySelector(".highScoreBtn");
 var choiceBtn  = document.querySelector(".card-footer");
 var choiceBtn1  = document.querySelector("#choice1");
 var choiceBtn2  = document.querySelector("#choice2");
@@ -7,7 +9,6 @@ var choiceBtn3  = document.querySelector("#choice3");
 var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
 var value = document.getElementById("solution");
-
 
 // Question and Answer Variables
 var questionsPos = 0;
@@ -35,8 +36,6 @@ var correctArray = [0, 1, 0, 3, 1, 3, 0, 2, 3, 2];
 var btnArray = [choiceBtn1, choiceBtn2, choiceBtn3, choiceBtn4];
 var correctChosen;
 
-
-// will have to run a function that starts the timer and call the writeQuestion from that
 startBtn.addEventListener("click", startTimer);
 
 function startTimer() {
@@ -55,6 +54,9 @@ function wrongAnswer() {
 wrongAnswer();
 
 function writeQuestion() {
+    if (questionsPos > 9) {
+      return;
+      };
 questionText.textContent = questions[questionsPos];
 startBtn.style.display = 'none';
 choiceBtn.style.display = 'inline-block';
@@ -79,8 +81,6 @@ correctAnswer++;
 writeQuestion();
 };
 
-
-
 function wrong() {
 value.textContent = "Wrong!";
 correctChosen.removeEventListener("click", correct);
@@ -90,7 +90,6 @@ currAnswers++;
 correctAnswer++;
 writeQuestion();
 counter = counter - 10;
-console.log(counter); // working on it
 };
 
 //Timer
@@ -103,11 +102,46 @@ function startCountdown(seconds) {
       value.textContent = "Timer: " + counter;      
       counter--;
       
-      if (counter < 0 ) {
+      if (counter < 0) {
         clearInterval(interval);
       value.textContent = "Times up!";
+      gameOver();
+      } if (questionsPos > 9) {
+        //stop timer and collect current time
+        clearInterval(interval);
+        value.textContent = "Timer: " + counter;        
+        gameOver();
       }
-      
-    }, 1000);
-  
+    }, 1000);  
  }; 
+
+ // gameOver function
+ function gameOver() {
+    if (counter < 0) {
+        counter = 0;
+    };
+    questionText.textContent = "Game Over!";
+    // hide buttons and make new high score enter button
+    choiceBtn.style.display = 'none';   
+    highScoreBtn.style.display = 'inline-block';
+    textField.style.display = 'inline-block';
+    // enter text field for initials and submit high score
+    // add view high scores button to start to begin page   
+    highScoreBtn.addEventListener("click", saveHighScore);
+    // if counter is < 0 counter = 0
+    console.log(counter);
+ };
+
+ function saveHighScore() {
+    var initials = document.querySelector("#initials").value;
+    localStorage.setItem("highscore", counter);
+    localStorage.setItem("initials", initials);
+    startBtn.style.display = 'inline-block';
+    highScoreBtn.style.display = 'none';
+    textField.style.display = 'none';
+    questionsPos = 0;
+    currAnswers = 0;
+    correctAnswer = 0;
+    var value = document.getElementById("timer");
+    value.textContent = "Timer: 60";  
+ };
