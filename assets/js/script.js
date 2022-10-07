@@ -8,7 +8,7 @@ var choiceBtn2  = document.querySelector("#choice2");
 var choiceBtn3  = document.querySelector("#choice3");
 var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
-var value = document.getElementById("solution");
+var solution = document.getElementById("solution");
 
 // Question and Answer Variables
 var questionsPos = 0;
@@ -41,7 +41,7 @@ startBtn.addEventListener("click", startTimer);
 function startTimer() {
     startCountdown(seconds);
     writeQuestion();
-    value.textContent = "Select Answer";
+    solution.textContent = "Select Answer";
 };
 
 function wrongAnswer() {
@@ -72,7 +72,7 @@ correctChosen.addEventListener("click", correct);
 };
 
 function correct() {
-value.textContent = "Correct!";
+solution.textContent = "Correct!";
 correctChosen.removeEventListener("click", correct);
 wrongAnswer();
 questionsPos++;
@@ -82,7 +82,7 @@ writeQuestion();
 };
 
 function wrong() {
-value.textContent = "Wrong!";
+solution.textContent = "Wrong!";
 correctChosen.removeEventListener("click", correct);
 wrongAnswer();
 questionsPos++;
@@ -121,15 +121,10 @@ function startCountdown(seconds) {
         counter = 0;
     };
     questionText.textContent = "Game Over!";
-    // hide buttons and make new high score enter button
     choiceBtn.style.display = 'none';   
     highScoreBtn.style.display = 'inline-block';
     textField.style.display = 'inline-block';
-    // enter text field for initials and submit high score
-    // add view high scores button to start to begin page   
     highScoreBtn.addEventListener("click", saveHighScore);
-    // if counter is < 0 counter = 0
-    console.log(counter);
  };
 
  function saveHighScore() {
@@ -144,4 +139,7 @@ function startCountdown(seconds) {
     correctAnswer = 0;
     var value = document.getElementById("timer");
     value.textContent = "Timer: 60";  
+    solution.textContent = "";
+    questionText.textContent = "Click Start to begin";
+    // add view high scores button to start to begin page to be shown high scores
  };
