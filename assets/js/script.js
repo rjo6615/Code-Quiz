@@ -134,8 +134,7 @@ function startCountdown(seconds) {
 
  function saveHighScore() {    
     var initials = document.querySelector("#initials").value; //retreive value of text field
-    localStorage.setItem("highscore", counter); // add counter value to local storage
-    localStorage.setItem("initials", initials); // add initials to local storage
+    localStorage.setItem("highscore", JSON.stringify(initials + " " + counter)); // add score value to local storage
     startBtn.style.display = 'inline-block';
     showHighScoresBtn.style.display = 'inline-block'; 
     highScoreBtn.style.display = 'none';
@@ -153,13 +152,14 @@ function startCountdown(seconds) {
 
  function showHighScores() {
   highScoreField.style.display = 'inline-block';
-  counter = localStorage.getItem("highscore");
-  initials = localStorage.getItem("initials");
+  score = JSON.parse(localStorage.getItem("highscore"));
   scoreList.innerHTML = "";
 
 
     var li = document.createElement("li");
-    li.textContent = initials + " " + counter;
+    li.textContent = score;
 
    scoreList.appendChild(li);
  };
+
+ // need to create an array to populate initials and counter info
