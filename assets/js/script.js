@@ -127,13 +127,16 @@ function startCountdown(seconds) {
     choiceBtn.style.display = 'none';   
     highScoreBtn.style.display = 'inline-block';
     textField.style.display = 'inline-block';
-    highScoreBtn.addEventListener("click", saveHighScore);
+    highScoreBtn.addEventListener("click", saveHighScore); //submit button
  };
 
  function saveHighScore() {
-    var initials = document.querySelector("#initials").value;
-    localStorage.setItem("highscore", counter);
-    localStorage.setItem("initials", initials);
+    var initials = document.querySelector("#initials").value; //retreive value of text field
+    localStorage.setItem("highscore", counter); // add counter value to local storage
+    localStorage.setItem("initials", initials); // add initials to local storage
+
+
+
     startBtn.style.display = 'inline-block';
     showHighScoresBtn.style.display = 'inline-block'; 
     highScoreBtn.style.display = 'none';
