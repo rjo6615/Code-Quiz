@@ -1,6 +1,7 @@
 // Variable assignments
 var startBtn  = document.querySelector("#start");
 var textField  = document.querySelector(".card-body");
+var highScoreField  = document.querySelector(".cardTest");
 var highScoreBtn = document.querySelector(".highScoreBtn");
 var showHighScoresBtn = document.querySelector(".showHighScoresBtn");
 var choiceBtn  = document.querySelector(".card-footer");
@@ -126,14 +127,12 @@ function startCountdown(seconds) {
     questionText.textContent = "Game Over!";
     choiceBtn.style.display = 'none';   
     highScoreBtn.style.display = 'inline-block';
-    textField.style.display = 'inline-block';
+    textField.style.display = 'inline-block';    
     highScoreBtn.addEventListener("click", saveHighScore); //submit button
  };
  
 
- function saveHighScore() {
-    
-    
+ function saveHighScore() {    
     var initials = document.querySelector("#initials").value; //retreive value of text field
     localStorage.setItem("highscore", counter); // add counter value to local storage
     localStorage.setItem("initials", initials); // add initials to local storage
@@ -150,7 +149,17 @@ function startCountdown(seconds) {
     questionText.textContent = "Click Start to begin";
     // add view high scores button to start to begin page to be shown high scores
  };
+ var scoreList = document.querySelector("#score-list");
 
  function showHighScores() {
+  highScoreField.style.display = 'inline-block';
+  counter = localStorage.getItem("highscore");
+  initials = localStorage.getItem("initials");
+  scoreList.innerHTML = "";
 
+
+    var li = document.createElement("li");
+    li.textContent = initials + " " + counter;
+
+   scoreList.appendChild(li);
  };
