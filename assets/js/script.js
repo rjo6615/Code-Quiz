@@ -2,6 +2,7 @@
 var startBtn  = document.querySelector("#start");
 var textField  = document.querySelector(".card-body");
 var highScoreBtn = document.querySelector(".highScoreBtn");
+var showHighScoresBtn = document.querySelector(".showHighScoresBtn");
 var choiceBtn  = document.querySelector(".card-footer");
 var choiceBtn1  = document.querySelector("#choice1");
 var choiceBtn2  = document.querySelector("#choice2");
@@ -37,6 +38,7 @@ var btnArray = [choiceBtn1, choiceBtn2, choiceBtn3, choiceBtn4];
 var correctChosen;
 
 startBtn.addEventListener("click", startTimer);
+showHighScoresBtn.addEventListener("click", showHighScores);
 
 function startTimer() {
     startCountdown(seconds);
@@ -60,6 +62,7 @@ function writeQuestion() {
 questionText.textContent = questions[questionsPos];
 startBtn.style.display = 'none';
 choiceBtn.style.display = 'inline-block';
+showHighScoresBtn.style.display = 'none'; 
 choiceBtn1.textContent = (answersArray[currAnswers])[0];
 choiceBtn2.textContent = (answersArray[currAnswers])[1];
 choiceBtn3.textContent = (answersArray[currAnswers])[2];
@@ -132,6 +135,7 @@ function startCountdown(seconds) {
     localStorage.setItem("highscore", counter);
     localStorage.setItem("initials", initials);
     startBtn.style.display = 'inline-block';
+    showHighScoresBtn.style.display = 'inline-block'; 
     highScoreBtn.style.display = 'none';
     textField.style.display = 'none';
     questionsPos = 0;
@@ -143,3 +147,69 @@ function startCountdown(seconds) {
     questionText.textContent = "Click Start to begin";
     // add view high scores button to start to begin page to be shown high scores
  };
+
+ function showHighScores() {
+
+ };
+
+ var todoInput = document.querySelector("#todo-text");
+ var todoForm = document.querySelector("#todo-form");
+ var todoList = document.querySelector("#todo-list");
+ var todoCountSpan = document.querySelector("#todo-count");
+ 
+ var todos = [];
+ init();
+ 
+
+ function storeTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+todoForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+  var todoText = todoInput.value.trim();
+  if (todoText === "") {
+    return;
+  }
+  todos.push(todoText);
+  todoInput.value = "";
+  storeTodos();
+  renderTodos();
+});
+
+function init() {
+  var storedTodos = JSON.parse(localStorage.getItem("todos"));
+  if (storedTodos !== null) {
+    todos = storedTodos;
+  }
+  renderTodos();
+}
+
+ function renderTodos() {
+   todoList.innerHTML = "";
+   todoCountSpan.textContent = todos.length;
+   
+   for (var i = 0; i < todos.length; i++) {
+     var todo = todos[i];
+ 
+     var li = document.createElement("li");
+     li.textContent = todo;
+     li.setAttribute("data-index", i);
+ 
+     var button = document.createElement("button");
+     button.textContent = "Complete ✔️";
+ 
+     li.appendChild(button);
+     todoList.appendChild(li);
+   }
+ }
+ 
+ todoList.addEventListener("click", function(event) {
+  var element = event.target;
+  if (element.matches("button") === true) {
+    var index = element.parentElement.getAttribute("data-index");
+    todos.splice(index, 1);
+    storeTodos();
+    renderTodos();
+  }
+});
+ 
