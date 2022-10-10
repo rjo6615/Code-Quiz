@@ -4,6 +4,7 @@ var textField  = document.querySelector(".card-body");
 var highScoreField  = document.querySelector(".cardTest");
 var highScoreBtn = document.querySelector(".highScoreBtn");
 var showHighScoresBtn = document.querySelector(".showHighScoresBtn");
+var clearHighScoresBtn = document.querySelector(".clearHighScoresBtn");
 var choiceBtn  = document.querySelector(".card-footer");
 var choiceBtn1  = document.querySelector("#choice1");
 var choiceBtn2  = document.querySelector("#choice2");
@@ -11,6 +12,7 @@ var choiceBtn3  = document.querySelector("#choice3");
 var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
 var solution = document.getElementById("solution");
+var scoreList = document.querySelector("#score-list");
 
 // Question and Answer Variables
 var questionsPos = 0;
@@ -37,9 +39,11 @@ var answersArray = [q1answers, q2answers, q3answers, q4answers, q5answers, q6ans
 var correctArray = [0, 1, 0, 3, 1, 3, 0, 2, 3, 2];
 var btnArray = [choiceBtn1, choiceBtn2, choiceBtn3, choiceBtn4];
 var correctChosen;
+var scores = [];
 
 startBtn.addEventListener("click", startTimer);
 showHighScoresBtn.addEventListener("click", showHighScores);
+clearHighScoresBtn.addEventListener("click", clearHighScores);
 
 function startTimer() {
     startCountdown(seconds);
@@ -64,6 +68,7 @@ questionText.textContent = questions[questionsPos];
 startBtn.style.display = 'none';
 choiceBtn.style.display = 'inline-block';
 showHighScoresBtn.style.display = 'none'; 
+clearHighScoresBtn.style.display = 'none'; 
 choiceBtn1.textContent = (answersArray[currAnswers])[0];
 choiceBtn2.textContent = (answersArray[currAnswers])[1];
 choiceBtn3.textContent = (answersArray[currAnswers])[2];
@@ -131,12 +136,13 @@ function startCountdown(seconds) {
     highScoreBtn.addEventListener("click", saveHighScore); //submit button
  };
  
-
- function saveHighScore() {    
+  function saveHighScore() {    
     var initials = document.querySelector("#initials").value; //retreive value of text field
-    localStorage.setItem("highscore", JSON.stringify(initials + " " + counter)); // add score value to local storage
+    scores.push(initials + "-" + counter);
+    localStorage.setItem("highscore", JSON.stringify(scores)); // add score value to local storage
     startBtn.style.display = 'inline-block';
     showHighScoresBtn.style.display = 'inline-block'; 
+    clearHighScoresBtn.style.display = 'inline-block';
     highScoreBtn.style.display = 'none';
     textField.style.display = 'none';
     questionsPos = 0;
@@ -146,20 +152,31 @@ function startCountdown(seconds) {
     value.textContent = "Timer: 60";  
     solution.textContent = "";
     questionText.textContent = "Click Start to begin";
-    // add view high scores button to start to begin page to be shown high scores
  };
- var scoreList = document.querySelector("#score-list");
-
+ 
  function showHighScores() {
   highScoreField.style.display = 'inline-block';
-  score = JSON.parse(localStorage.getItem("highscore"));
-  scoreList.innerHTML = "";
-
-
-    var li = document.createElement("li");
-    li.textContent = score;
-
-   scoreList.appendChild(li);
+  var storedScores = JSON.parse(localStorage.getItem("highscore"));
+  if (storedScores !== null) {
+    scores = storedScores;
+    scoreList.innerHTML = "";
+    for (var i = 0; i < scores.length; i++) {
+      var scoreSet= scores[i];
+  
+      var li = document.createElement("li");
+      li.textContent = scoreSet;
+      scoreList.appendChild(li);
+    }
+  } else {
+    highScoreField.style.display = 'none';
+  }
  };
 
- // need to create an array to populate initials and counter info
+ function clearHighScores() {
+  highScoreField.style.display = 'none';
+  while( scoreList.firstChild ){
+    scoreList.removeChild( scoreList.firstChild );
+  }
+  localStorage.clear();
+  scores = [];
+ };
