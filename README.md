@@ -24,9 +24,9 @@ To use this project, start by clicking the 'Start' button. You will then be pres
 Example images are listed below:
 
 ![Home Page](assets/images/image1.jpg)
-![Password length](assets/images/image2.jpg)
-![Criteria](assets/images/image3.jpg)
-![Displayed password](assets/images/image4.jpg)
+![Questions](assets/images/image2.jpg)
+![Game Over](assets/images/image3.jpg)
+![Highscores](assets/images/image4.jpg)
 
 ## Credits
 
