@@ -13,6 +13,7 @@ var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
 var solution = document.getElementById("solution");
 var scoreList = document.querySelector("#score-list");
+var initial = document.querySelector("#initials")
 
 // Question and Answer Variables
 var questionsPos = 0;
@@ -49,6 +50,7 @@ function startTimer() {
     startCountdown(seconds);
     writeQuestion();
     solution.textContent = "Select Answer";
+    initial.textContent === "bbb"; // tring to reset text field   
 };
 
 function wrongAnswer() {
@@ -69,6 +71,7 @@ startBtn.style.display = 'none';
 choiceBtn.style.display = 'inline-block';
 showHighScoresBtn.style.display = 'none'; 
 clearHighScoresBtn.style.display = 'none'; 
+highScoreField.style.display = 'none';
 choiceBtn1.textContent = (answersArray[currAnswers])[0];
 choiceBtn2.textContent = (answersArray[currAnswers])[1];
 choiceBtn3.textContent = (answersArray[currAnswers])[2];
@@ -132,7 +135,7 @@ function startCountdown(seconds) {
     questionText.textContent = "Game Over!";
     choiceBtn.style.display = 'none';   
     highScoreBtn.style.display = 'inline-block';
-    textField.style.display = 'inline-block';    
+    textField.style.display = 'inline-block'; 
     highScoreBtn.addEventListener("click", saveHighScore); //submit button
  };
  
@@ -161,8 +164,7 @@ function startCountdown(seconds) {
     scores = storedScores;
     scoreList.innerHTML = "";
     for (var i = 0; i < scores.length; i++) {
-      var scoreSet= scores[i];
-  
+      var scoreSet= scores[i];  
       var li = document.createElement("li");
       li.textContent = scoreSet;
       scoreList.appendChild(li);
