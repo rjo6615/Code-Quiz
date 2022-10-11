@@ -13,7 +13,7 @@ var choiceBtn4  = document.querySelector("#choice4");
 var questionText = document.getElementById("question");
 var solution = document.getElementById("solution");
 var scoreList = document.querySelector("#score-list");
-var initial = document.querySelector("#initials")
+
 
 // Question and Answer Variables
 var questionsPos = 0;
@@ -40,7 +40,7 @@ var answersArray = [q1answers, q2answers, q3answers, q4answers, q5answers, q6ans
 var correctArray = [0, 1, 0, 3, 1, 3, 0, 2, 3, 2];
 var btnArray = [choiceBtn1, choiceBtn2, choiceBtn3, choiceBtn4];
 var correctChosen;
-var scores = [];
+var scores = [];    
 
 startBtn.addEventListener("click", startTimer);
 showHighScoresBtn.addEventListener("click", showHighScores);
@@ -49,8 +49,7 @@ clearHighScoresBtn.addEventListener("click", clearHighScores);
 function startTimer() {
     startCountdown(seconds);
     writeQuestion();
-    solution.textContent = "Select Answer";
-    initial.textContent === "bbb"; // tring to reset text field   
+    solution.textContent = "Select Answer"; 
 };
 
 function wrongAnswer() {
@@ -136,12 +135,15 @@ function startCountdown(seconds) {
     choiceBtn.style.display = 'none';   
     highScoreBtn.style.display = 'inline-block';
     textField.style.display = 'inline-block'; 
+    document.getElementById("initials").value = "";
     highScoreBtn.addEventListener("click", saveHighScore); //submit button
  };
  
   function saveHighScore() {    
     var initials = document.querySelector("#initials").value; //retreive value of text field
     scores.push(initials + "-" + counter);
+    scores.sort(); // attempting to sort array
+    console.log(scores); // sort log
     localStorage.setItem("highscore", JSON.stringify(scores)); // add score value to local storage
     startBtn.style.display = 'inline-block';
     showHighScoresBtn.style.display = 'inline-block'; 
@@ -155,6 +157,7 @@ function startCountdown(seconds) {
     value.textContent = "Timer: 60";  
     solution.textContent = "";
     questionText.textContent = "Click Start to begin";
+    
  };
  
  function showHighScores() {
